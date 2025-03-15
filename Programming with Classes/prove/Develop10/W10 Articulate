@@ -1,0 +1,55 @@
+### **What is Polymorphism and Why is it Important?**
+
+Polymorphism is a concept in programming that allows different types of objects to be treated as if they are the same type. This means that you can use a common method or function across different types of objects, but each object will behave according to its own unique class. It’s like how different animals (dog, cat, bird) all have a "makeSound" ability, but each one makes a different sound. Polymorphism lets you use the same method name for different actions depending on the object calling it.
+
+### **Benefit of Polymorphism**
+
+One of the main benefits of polymorphism is **flexibility**. It allows you to write general code that can work with any new types of objects, even ones that aren’t created yet, without needing to rewrite your code. This makes the program easier to maintain and extend, especially as it grows in size or when you add new features.
+
+### **Application of Polymorphism**
+
+In the **Eternal Quest** program, polymorphism is used to handle different types of goals—like **SimpleGoal**, **EternalGoal**, and **ChecklistGoal**—in a common way. Each type of goal has its own way of recording progress and earning points, but they all use the same method `RecordEvent()`. The program can handle any goal type in the same list, and it doesn’t matter if it’s a one-time goal or a recurring one.
+
+### **Code Example of Polymorphism**
+
+```csharp
+// Base class
+abstract class Goal
+{
+    public abstract void RecordEvent();
+}
+
+// Derived class 1: Simple Goal
+class SimpleGoal : Goal
+{
+    public override void RecordEvent()
+    {
+        Console.WriteLine("Simple goal completed!");
+    }
+}
+
+// Derived class 2: Eternal Goal
+class EternalGoal : Goal
+{
+    public override void RecordEvent()
+    {
+        Console.WriteLine("Eternal goal recorded.");
+    }
+}
+
+// Main program
+class Program
+{
+    static void Main()
+    {
+        Goal simpleGoal = new SimpleGoal();
+        Goal eternalGoal = new EternalGoal();
+
+        simpleGoal.RecordEvent(); // Calls SimpleGoal's RecordEvent
+        eternalGoal.RecordEvent(); // Calls EternalGoal's RecordEvent
+    }
+}
+```
+
+### **Explanation**
+In the example, both `SimpleGoal` and `EternalGoal` inherit from the `Goal` class and override the `RecordEvent()` method. The program can call `RecordEvent()` on any goal type, but it behaves differently depending on the type of goal (simple or eternal). This is a classic example of polymorphism in action, where the same method name works for different types of objects with different behaviors.
