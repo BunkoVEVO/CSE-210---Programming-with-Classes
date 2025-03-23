@@ -1,0 +1,130 @@
+Eternal Quest Program - Design Plan
+1. Identifying Classes and Responsibilities
+Based on the problem statement, the following classes will be needed:
+
+Base Class: Goal
+Responsibilities: Acts as a template for different goal types.
+
+Methods:
+
+RecordEvent(): Virtual method to be overridden in derived classes.
+
+GetPoints(): Abstract method for calculating points.
+
+DisplayStatus(): Displays goal status.
+
+Attributes:
+
+string Name
+
+string Description
+
+int Points
+
+bool IsCompleted
+
+Derived Classes (Inheritance & Polymorphism)
+1. SimpleGoal (One-time goal)
+Responsibilities: Tracks a goal that is completed once.
+
+Methods:
+
+override RecordEvent(): Marks goal as complete.
+
+Attributes:
+
+Inherits all attributes from Goal
+
+2. EternalGoal (Repeated goal)
+Responsibilities: A goal that never fully completes but rewards points each time recorded.
+
+Methods:
+
+override RecordEvent(): Increments the completion count but never marks as complete.
+
+Attributes:
+
+int TimesCompleted
+
+3. ChecklistGoal (Requires multiple completions)
+Responsibilities: Must be completed a set number of times for extra points.
+
+Methods:
+
+override RecordEvent(): Increments completion count.
+
+override GetPoints(): Adds bonus points on final completion.
+
+Attributes:
+
+int TargetCount
+
+int CurrentCount
+
+int BonusPoints
+
+2. Behaviors and Methods
+Class	        Method	            Description
+Goal	        RecordEvent()	    Virtual method to handle recording an event
+Goal	        GetPoints()	        Abstract method to calculate points
+Goal	        DisplayStatus()	    Displays goal progress
+SimpleGoal	    RecordEvent()	    Marks goal as complete
+EternalGoal	    RecordEvent()	    Logs each occurrence but never completes
+ChecklistGoal	RecordEvent()	    Tracks progress toward completion
+ChecklistGoal	GetPoints()	        Adds extra points when fully completed
+3. Attributes and Data Storage
+The program should store:
+
+List of active goals (List<Goal> goals)
+
+Total score (int score)
+
+File storage for saving and loading progress.
+
+4. Program Flow (Chart Representation)
+User selects an action (Create goal, Record progress, View progress, Save/Load)
+
+If creating a goal, choose the type: Simple, Eternal, or Checklist.
+
+If recording progress, find the goal and update points/status.
+
+Display updated scores and goals list.
+
+Allow saving/loading goals.
+
+5. Exceeding Requirements (Creativity)
+To go beyond the basic requirements, I propose adding:
+
+Leveling System: Earn XP and level up based on goal completions.
+
+Streak System: Earn extra rewards for consecutive progress.
+
+Penalty Goals: Negative goals that deduct points (e.g., breaking a bad habit).
+
+6. Class Diagram
+pgsql
+Copy
+Edit
+      +----------------+
+      |     Goal       |
+      +----------------+
+      | - Name         |
+      | - Description  |
+      | - Points       |
+      | - IsCompleted  |
+      +----------------+
+      | + RecordEvent()|
+      | + GetPoints()  |
+      | + DisplayStatus() |
+      +----------------+
+            ^
+            |
+    ------------------
+    |       |       |
++------------+ +------------+ +--------------+
+| SimpleGoal | | EternalGoal | | ChecklistGoal |
++------------+ +------------+ +--------------+
+| + RecordEvent() | + RecordEvent() | + RecordEvent() |
+|                | + TimesCompleted | + CurrentCount  |
+|                |                | + TargetCount   |
++------------+ +------------+ +--------------+
